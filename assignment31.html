@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 400px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+        position: relative;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="email"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .error input,
+      .error select,
+      .error textarea {
+        border-color: red;
+      }
+      .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+      .error-icon {
+        position: absolute;
+        right: 10px;
+        top: 35px;
+        color: red;
+        font-weight: bold;
+      }
+      .form-footer {
+        margin-top: 20px;
+      }
+      .send-btn {
+        background: orange;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="myForm" onsubmit="return validateForm()">
+      <div class="form-group" id="firstNameGroup">
+        <label>First Name</label>
+        <input type="text" id="firstName" placeholder="First Name" />
+        <div class="error-icon" id="firstNameIcon">✖</div>
+        <div class="error-message" id="firstNameError">
+          Please supply your first name
+        </div>
+      </div>
+
+      <div class="form-group" id="lastNameGroup">
+        <label>Last Name</label>
+        <input type="text" id="lastName" placeholder="Last Name" />
+        <div class="error-icon" id="lastNameIcon">✖</div>
+        <div class="error-message" id="lastNameError">
+          Please supply your last name
+        </div>
+      </div>
+
+      <div class="form-group" id="emailGroup">
+        <label>E-Mail</label>
+        <input type="email" id="email" placeholder="E-Mail Address" />
+        <div class="error-icon" id="emailIcon">✖</div>
+        <div class="error-message" id="emailError">
+          Please supply your email address
+        </div>
+      </div>
+
+      <div class="form-group" id="phoneGroup">
+        <label>Phone #</label>
+        <input type="text" id="phone" placeholder="(845)555-1212" />
+        <div class="error-icon" id="phoneIcon">✖</div>
+        <div class="error-message" id="phoneError">
+          Please supply your phone number
+        </div>
+      </div>
+
+      <div class="form-group" id="addressGroup">
+        <label>Address</label>
+        <input type="text" id="address" placeholder="Address" />
+        <div class="error-icon" id="addressIcon">✖</div>
+        <div class="error-message" id="addressError">
+          Please supply your street address
+        </div>
+      </div>
+
+      <div class="form-group" id="cityGroup">
+        <label>City</label>
+        <input type="text" id="city" placeholder="City" />
+        <div class="error-icon" id="cityIcon">✖</div>
+        <div class="error-message" id="cityError">Please supply your city</div>
+      </div>
+
+      <div class="form-group">
+        <label>State</label>
+        <select>
+          <option>Please select your state</option>
+          <option>California</option>
+          <option>Texas</option>
+          <option>New York</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Do you have hosting?</label>
+        <input type="radio" name="hosting" /> Yes
+        <input type="radio" name="hosting" /> No
+      </div>
+
+      <div class="form-group">
+        <label>Project Description</label>
+        <textarea placeholder="Project Description"></textarea>
+      </div>
+
+      <div class="form-footer">
+        <button class="send-btn" type="submit">Send 🚀</button>
+      </div>
+    </form>
+
+    <script>
+      function validateForm() {
+        let isValid = true;
+
+        function validateField(id) {
+          const input = document.getElementById(id);
+          const group = document.getElementById(id + "Group");
+          const error = document.getElementById(id + "Error");
+          const icon = document.getElementById(id + "Icon");
+
+          if (input.value.trim() === "") {
+            group.classList.add("error");
+            error.style.display = "block";
+            icon.style.display = "block";
+            isValid = false;
+          } else {
+            group.classList.remove("error");
+            error.style.display = "none";
+            icon.style.display = "none";
+          }
+        }
+
+        validateField("firstName");
+        validateField("lastName");
+        validateField("email");
+        validateField("phone");
+        validateField("address");
+        validateField("city");
+
+        return isValid;
+      }
+
+      // Hide errors initially
+      window.onload = function () {
+        const errorIds = [
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "address",
+          "city",
+        ];
+        errorIds.forEach((id) => {
+          document.getElementById(id + "Error").style.display = "none";
+          document.getElementById(id + "Icon").style.display = "none";
+        });
+      };
+    </script>
+  </body>
+</html>
